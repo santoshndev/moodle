@@ -1484,6 +1484,8 @@
       </KEYS>
       <INDEXES>
         <INDEX NAME="context-component-area-itemid" UNIQUE="true" FIELDS="usingcontextid, component, questionarea, itemid"/>
+        <INDEX NAME="component-area" UNIQUE="false" FIELDS="component, questionarea"/>
+        <INDEX NAME="itemid" UNIQUE="true" FIELDS="itemid"/>
       </INDEXES>
     </TABLE>
     <TABLE NAME="question_set_references" COMMENT="Records where groups of questions are used.">

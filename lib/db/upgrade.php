@@ -2728,6 +2728,19 @@ privatefiles,moodle|/user/files.php';
             $dbman->add_index($table, $index);
         }
 
+        //Additional Indexes for Performance Improvement
+        $index = new xmldb_index('component-area', XMLDB_INDEX_NOTUNIQUE, ['component', 'questionarea']);
+        // Conditionally launch add field id.
+        if (!$dbman->index_exists($table, $index)) {
+            $dbman->add_index($table, $index);
+        }
+
+        $index = new xmldb_index('itemid', XMLDB_INDEX_UNIQUE, ['itemid']);
+        // Conditionally launch add field id.
+        if (!$dbman->index_exists($table, $index)) {
+            $dbman->add_index($table, $index);
+        }
+
         // Main savepoint reached.
         upgrade_main_savepoint(true, 2022032200.01);
     }
