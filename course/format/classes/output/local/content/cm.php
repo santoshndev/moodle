@@ -277,7 +277,7 @@ class cm implements named_templatable, renderable {
      * @return bool if the cm has editor data
      */
     protected function add_editor_data(stdClass &$data, renderer_base $output): bool {
-        if (!$this->format->show_editor()) {
+        if (!$this->format->show_editor(['moodle/course:viewhiddenactivities', 'moodle/course:activityvisibility'])) {
             return false;
         }
         $returnsection = $this->format->get_section_number();

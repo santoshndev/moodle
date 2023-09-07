@@ -281,7 +281,7 @@ class section implements named_templatable, renderable {
      * @return bool if the cm has name data
      */
     protected function add_editor_data(stdClass &$data, renderer_base $output): bool {
-        if (!$this->format->show_editor()) {
+        if (!$this->format->show_editor(['moodle/course:sectionvisibility', 'moodle/course:viewhiddensections'])) {
             return false;
         }
 
