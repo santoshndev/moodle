@@ -219,7 +219,13 @@ define([
 
                 if (!viewingFullCalendar && displayingSmallBlockCalendar) {
                     const dateContainer = target.closest(SELECTORS.DAY);
-                    const url = '?view=day&time=' + dateContainer.data('day-timestamp');
+                    const wrapper = target.closest(CalendarSelectors.wrapper);
+                    const courseId = wrapper.data('courseid');
+                    let course = '';
+                    if (courseId > 1) {
+                        course = '&course=' + courseId;
+                    }
+                    const url = '?view=day&time=' + dateContainer.data('day-timestamp') + course;
                     window.location.assign(Config.wwwroot + '/calendar/view.php' + url);
                 } else {
                     const hasViewDayLink = target.closest(SELECTORS.VIEW_DAY_LINK).length;
