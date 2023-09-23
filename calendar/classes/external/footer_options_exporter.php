@@ -148,6 +148,7 @@ class footer_options_exporter extends exporter {
         $url = new moodle_url('/calendar/view.php', [
             'view' => 'month',
             'time' => $this->calendar->time,
+            'course' => $this->calendar->courseid,
         ]);
 
         return $url->out(false);
