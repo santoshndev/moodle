@@ -19204,7 +19204,7 @@ body.drawer-ease {
   visibility: visible;
 }
 .drawer.drawer-left .drawertoggle {
-  margin-right: auto;
+  margin-right: 5px;
   margin-left: 5px;
 }
 .drawer.drawer-bottom {
@@ -19293,7 +19293,7 @@ body.drawer-ease {
     visibility: visible;
   }
   .drawer-md.drawer-left .drawertoggle {
-    margin-right: auto;
+    margin-right: 5px;
     margin-left: 5px;
   }
 }
@@ -19354,7 +19354,7 @@ body.drawer-ease {
     visibility: visible;
   }
   .drawer-sm.drawer-left .drawertoggle {
-    margin-right: auto;
+    margin-right: 5px;
     margin-left: 5px;
   }
 }
