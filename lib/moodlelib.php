@@ -4619,12 +4619,16 @@ function complete_user_login($user, array $extrauserinfo = []) {
         $ismoodleapp = false;
         $useragent = \core_useragent::get_user_agent_string();
 
-        // Schedule adhoc task to sent a login notification to the user.
-        $task = new \core\task\send_login_notifications();
-        $task->set_userid($USER->id);
-        $task->set_custom_data(compact('ismoodleapp', 'useragent', 'loginip', 'logintime'));
-        $task->set_component('core');
-        \core\task\manager::queue_adhoc_task($task);
+        $sitepreferences = get_message_output_default_preferences();
+        $userpreferences = get_user_preferences('message_provider_moodle_newlogin_enabled');
+        if (!($sitepreferences->moodle_newlogin_disable || $userpreferences == 'none')) {
+            // Schedule adhoc task to send a login notification to the user.
+            $task = new \core\task\send_login_notifications();
+            $task->set_userid($USER->id);
+            $task->set_custom_data(compact('ismoodleapp', 'useragent', 'loginip', 'logintime'));
+            $task->set_component('core');
+            \core\task\manager::queue_adhoc_task($task);
+        }
     }
 
     // Queue migrating the messaging data, if we need to.
