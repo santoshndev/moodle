@@ -21,3 +21,4 @@ To upgrade this library:
 Changes:
   * None. This import contains _NO_CHANGES_ to the simplepie.inc file, changes are
     controlled through OO extension of the classes instead.
+  * Added fix for null parameter in lib/simplepie/src/Content/Type/Sniffer.php (replaced $this->file->body with $this->file->body ?? '') as it was not fixed in upstream repo.
