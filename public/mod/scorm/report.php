@@ -91,7 +91,11 @@ if (empty($noheader)) {
         'description' => ''
     ]);
     $PAGE->navbar->add($strreport, new moodle_url('/mod/scorm/report.php', array('id' => $cm->id)));
-
+    $PAGE->requires->js_init_code('
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    ');
     echo $OUTPUT->header();
 }
 
