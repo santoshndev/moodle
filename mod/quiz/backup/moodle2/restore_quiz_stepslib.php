@@ -470,6 +470,8 @@ class restore_quiz_activity_structure_step extends restore_questions_activity_st
 
         $data = (object) $data;
         $slotid = $this->get_new_parentid('quiz_question_instance');
+        $cm = get_coursemodule_from_instance('quiz', $this->get_new_parentid('quiz'), $this->get_courseid());
+        $contextid = \core\context\module::instance($cm->id)->id;
 
         if ($this->task->is_samesite() && $tag = core_tag_tag::get($data->tagid, 'id, name')) {
             $data->tagname = $tag->name;
@@ -481,8 +483,12 @@ class restore_quiz_activity_structure_step extends restore_questions_activity_st
         }
 
         $tagstring = "{$data->tagid},{$data->tagname}";
-        $setreferencedata = $DB->get_record('question_set_references',
-            ['itemid' => $slotid, 'component' => 'mod_quiz', 'questionarea' => 'slot']);
+        $setreferencedata = $DB->get_record('question_set_references', [
+            'usingcontextid' => $contextid,
+            'component'      => 'mod_quiz',
+            'questionarea'   => 'slot',
+            'itemid'         => $slotid,
+        ]);
         $filtercondition = json_decode($setreferencedata->filtercondition);
         $filtercondition->tags[] = $tagstring;
         $setreferencedata->filtercondition = json_encode($filtercondition);
