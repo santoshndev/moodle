@@ -124,6 +124,16 @@ class block_login extends block_base {
                 $this->content->text .= '</div>';
             }
         }
+        // Enable the toggle password feature for the login block.
+        // We use the same module that the login page uses and initialize it with
+        // the password field ID in this block.
+        // Toggle password visibility icon.
+        $loginpasswordtoggle = get_config('core', 'loginpasswordtoggle');
+        $smallscreensonly = $loginpasswordtoggle == TOGGLE_SENSITIVE_SMALL_SCREENS_ONLY;
+        $togglepassword = $loginpasswordtoggle == TOGGLE_SENSITIVE_ENABLED || $smallscreensonly;
+        if ($togglepassword) {
+            $this->page->requires->js_call_amd('core/togglesensitive', 'init', ['login_password', $smallscreensonly]);
+        }
 
         return $this->content;
     }
