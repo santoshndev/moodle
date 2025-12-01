@@ -23,3 +23,33 @@ Feature: Login from a block
     And I click on "Log in" "button" in the "Login" "block"
     Then I should see "You are logged in as Test User"
     And "Login" "block" should not exist
+
+  @javascript
+  Scenario: Display the password visibility toggle icon on the login block
+    Given the following config values are set as admin:
+      | loginpasswordtoggle | 1 |
+    And I am on homepage
+    Then "Toggle sensitive" "button" should be visible
+    And the following config values are set as admin:
+      | loginpasswordtoggle | 0 |
+    And I reload the page
+    And "Toggle sensitive" "button" should not be visible
+
+  @theme_boost @javascript
+  Scenario: Display the password visibility toggle icon for small screens only on the login block in boost theme
+    Given the following config values are set as admin:
+      | loginpasswordtoggle | 2 |
+    And I am on homepage
+    Then "Toggle sensitive" "button" should not be visible
+    And I change the viewport size to "mobile"
+    And I click on "Open block drawer" "button"
+    And "Toggle sensitive" "button" should be visible
+
+  @theme_classic @javascript
+  Scenario: Display the password visibility toggle icon for small screens only on the login block in classic theme
+    Given the following config values are set as admin:
+      | loginpasswordtoggle | 2 |
+    And I am on homepage
+    Then "Toggle sensitive" "button" should not be visible
+    And I change the viewport size to "mobile"
+    And "Toggle sensitive" "button" should be visible
