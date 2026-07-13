@@ -530,6 +530,14 @@ class course_edit_form extends moodleform {
 
         $errors = parent::validation($data, $files);
 
+        // Add field validation check for empty fullname and shortname when entered whitespaces only.
+        if (empty(trim($data['fullname']))) {
+            $errors['fullname'] = get_string('missingfullname');
+        }
+        if (empty(trim($data['shortname']))) {
+            $errors['shortname'] = get_string('missingshortname');
+        }
+
         // Add field validation check for duplicate shortname.
         if ($course = $DB->get_record('course', array('shortname' => $data['shortname']), '*', IGNORE_MULTIPLE)) {
             if (empty($data['id']) || $course->id != $data['id']) {
